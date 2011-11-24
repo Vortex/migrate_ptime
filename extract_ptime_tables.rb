@@ -1,3 +1,11 @@
+# Extract users
+fp = File.open("users.csv", "w")
+
+User.all.each do |user|
+  fp.write([user.id, user.name, user.inactive.to_s].join(";"))
+  fp.write("\n")
+end
+
 # Extract entries
 fp = File.open("entries.csv", "w")
 
@@ -8,8 +16,8 @@ Entry.all.each do |entry|
   rescue
     task_id = ''
   end
-  fp.write([entry.duration, entry.date, entry.project.id, 
-            entry.user.name, entry.description, task_id, 
+  fp.write([entry.duration, entry.date, entry.project.id,
+            entry.user.name, entry.description, task_id,
             entry.billable].join(";"))
   fp.write("\n")
 end
